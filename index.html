@@ -5,70 +5,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 
 <body>
     <style>
-        *,
-        *:before,
-        *:after {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-
-            padding: 0;
-            margin: 0;
+        body {
+            background-image: url(deneme.jpg);
         }
-
-        .widget-container {
-            width: 100%;
-            height: 100%; 
-            position: relative;
-            top: 0px;
-            left: 0px;
-            overflow: hidden;
-            background: gray;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center center;
-            background: url(back_ground.jpeg);
-            background-size: contain;
+        .row{
+            align-items: center;
+            justify-content: center;
         }
-
-        canvas {
-            position: relative;
-            top: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-        }
+        
     </style>
-    <div>
-        <!-- <button onclick="yenile();">Tekrarla</button> -->
-    <div id="widgetContainer" class="widget-container">
-        <canvas id="canvas"></canvas>
+    <div class="container-fluid">
+        <div class="row">
+            <div id="widgetContainer" class="col-md-5">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger" onclick="yenile();">reset</button>
+            </div>
+            <div class="col-md-5">
+                <!-- <ul class="list-group" id="list">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                
+                  </ul> -->
+            </div>
+        </div>
     </div>
-    <style>
-        button{
-             text-decoration: none;
-             background-color: rgb(237, 100, 225);
-             color: white;
-             padding: 20px 8px;
-             font-size: 14px;
-             position: absolute;
-            bottom: 0;
-            left: 0;
-
-        }    
-    </style>
-    <div>
-        <button onclick="yenile();">Tekrarla</button>
-    </div>
-</div>
     <script>
-        function yenile(){
+        function yenile() {
             location.reload();
         }
         function get(el) {
@@ -149,17 +121,17 @@
 
         /*============================================*/
 
-        var SpinningWheel = (function () { 
+        var SpinningWheel = (function () {
             // Helpers
             var blackHex = '#d2e2e1',
                 whiteHex = '#fff',
                 halfPI = Math.PI / 2,
                 doublePI = Math.PI * 2;
-            var randomSayi = function(){
+            var randomSayi = function () {
                 var rnd = Math.floor(Math.random() * 100);
                 //console.log(rnd+' fonk');
                 //rnd = 0;
-                return rnd; 
+                return rnd;
             }
             String.prototype.hashCode = function () {
                 // See http://www.cse.yorku.ca/~oz/hash.html
@@ -182,15 +154,15 @@
                 isRunning: false,
                 isStop: false,
 
-                width: 1000,
-                height: 800,
+                width: 800,
+                height: 700,
                 timerHandle: 0,
                 timerDelay: 1000 / 60,
 
                 angleCurrent: 0,
                 angleDelta: 0,
 
-                size: 800 / 2 - 15,
+                size: 700 / 2 - 15,
 
                 canvasContext: null,
 
@@ -214,8 +186,8 @@
 
                 spinStart: 0,
 
-                centerX: 1000 / 2,
-                centerY: 800 / 2,
+                centerX: 800 / 2,
+                centerY: 700 / 2,
 
                 realRotated: 0,
 
@@ -258,7 +230,7 @@
                 },
 
                 initCanvas: function () {
-                    
+
                     var canvas = get('canvas');
                     canvas.width = this.width;
                     canvas.height = this.height;
@@ -331,15 +303,17 @@
                     // this.totalAngleDown = totalAngleDown;
 
                     this.timerHandle = setTimeout(this.onTimerTickWithDefinedStop.bind(this), this.timerDelay);
+                   
+
                 },
 
                 onTimerTick: function () {
 
                     if (this.isStop) {
                         this.isRunning = false;
-                        
+
                         clearTimeout(this.timerHandle);
-                        
+
                         return;
                     }
 
@@ -374,6 +348,7 @@
                         clearInterval(this.timerHandle);
                         this.timerHandle = 0;
                         this.angleDelta = 0;
+                       
                     }
                 },
 
@@ -405,11 +380,18 @@
 
                     if (finished) {
                         // console.log('real rotated down vs calculated dow', this.realRotated, "-" ,this.totalAngleDown);
-
+                        
                         clearTimeout(this.timerHandle);
                         this.timerHandle = 0;
                         this.realRotated = 0;
                         this.isDown = false;
+                        // var ul = document.getElementById("list");
+                        // var txt = prompt('Odulü kazana isim');
+                        // ul.innerHTML += '<li class="list-group-item">' + txt + " arda"+ '</li>';
+                        // var li = document.createElement("list-group-item");
+                        
+                    
+                        
                     } else {
                         this.angleCurrent += s;
 
@@ -612,9 +594,9 @@
                 }
             };
 
-            var container = get('widgetContainer');
+            // var container = get('widgetContainer');
 
-            var containerWidth, containerHeight;
+            // var containerWidth, containerHeight;
 
             var isRunning = false;
             var isStop = false;
@@ -688,8 +670,8 @@
                 wheel.downTime = wheel.baseDownTime / (wheel.baseUpTime + wheel.baseDownTime) * duration;
 
                 wheel.init({
-                    width: containerWidth,
-                    height: containerHeight,
+                    // width: containerWidth,
+                    // height: containerHeight,
                     maxSpeed: maxSpeed,
                     stopRandom: stopRandom,
                     stopAt: stopAt - 1,
@@ -709,12 +691,12 @@
             /*===== Start point of animation  =====*/
             /*==============================================*/
 
-            function reloadGlobalVariables() {
+            // function reloadGlobalVariables() {
 
-                containerWidth = parseInt(window.getComputedStyle(container).getPropertyValue('width'));
-                containerHeight = parseInt(window.getComputedStyle(container).getPropertyValue('height'));
+            //     // containerWidth = parseInt(window.getComputedStyle(container).getPropertyValue('width'));
+            //     // containerHeight = parseInt(window.getComputedStyle(container).getPropertyValue('height'));
 
-            }
+            // }
 
             function stopCurrentAnimation(callback) {
 
@@ -790,54 +772,103 @@
                 images = ["./1.png", "./2.png", "./3.png", "./4.png", "./5.png", "./6.png"];
                 imageSize = 30;
                 contentType = CONTENT_TEXT;
-                colors = ["red", "green", "blue", "gray"];
-                backgroundImage = "";
+                colors = ["#562349", "#949CDF", "#CD5D7D", "#D18CE0","#3A6351","#CD5D7D","#D18CE0","#FEE2B3","#3A6351","#CD5D7D","#D18CE0"];
+                backgroundImage = ""; 
                 maxSpeed = 5;
                 stopRandom = false;
                 var a = randomSayi();
-                //console.log(a);
-                //var rnd = Math.floor(Math.random() * 100); 
-                // rnd = Math.floor(Math.random() * 10);
-                if(a==0){
-                   stopAt = 1;
-                   console.log(stopAt);     
+                console.log('a ' +a);
+                //console.log('c ' +c);
+               
+                if (a == 0) {
+                    stopAt = 1;
+                    console.log(stopAt);
                 }
-                if(a>0 && a<=10){
-                   stopAt = 2;
-                   console.log(stopAt);     
+                if (a > 0 && a <= 6) {
+                    stopAt = 2;
+                    console.log(stopAt);
                 }
-                if(a>10 && a<=25){
-                   stopAt = 3;
-                   console.log(stopAt);     
+                if (a > 6 && a <= 12) {
+                    stopAt = 3;
+                    console.log(stopAt);
                 }
-                if(a>25 && a<=45){
-                   stopAt = 4;     
-                   console.log(stopAt);
+                if (a > 12 && a <= 18) {
+                    stopAt = 4;
+                    console.log(stopAt);
                 }
-                if(a>45 && a<=50){
-                   stopAt = 5;     
-                   console.log(stopAt);
+                if (a > 18 && a <= 20) {
+                    stopAt = 5;
+                    console.log(stopAt);
                 }
-                if(a>50 && a<=65){
-                   stopAt = 6;     
-                   console.log(stopAt);
+                if (a > 20 && a <= 26) {
+                    stopAt = 6;
+                    console.log(stopAt);
                 }
-                if(a>65 && a<=72){
-                   stopAt = 7;     
-                   console.log(stopAt);
+                if (a > 26 && a <= 32) {
+                    stopAt = 7;
+                    console.log(stopAt);
                 }
-                if(a>72 && a<=80){
-                   stopAt = 8;     
-                   console.log(stopAt);
+                if (a > 32 && a <= 35) {
+                    stopAt = 8;
+                    console.log(stopAt);
                 }
-                if(a>80 && a<=90){
-                   stopAt = 9;     
-                   console.log(stopAt);
+                if (a > 35 && a <= 37) {
+                    stopAt = 9;
+                    console.log(stopAt);
                 }
-                if(a>90 && a<=100){
-                   stopAt = 10;     
-                   console.log(stopAt);
+                if (a > 37 && a <= 43) {
+                    stopAt = 10;
+                    console.log(stopAt);
                 }
+                if (a > 43 && a <= 49) {
+                    stopAt = 11;
+                    console.log(stopAt);
+                }
+                if (a == 50) {
+                    stopAt = 12;
+                    console.log(stopAt);
+                }
+                if (a > 50 && a <= 56) {
+                    stopAt = 13;
+                    console.log(stopAt);
+                }
+                if (a > 56 && a <= 62) {
+                    stopAt = 14;
+                    console.log(stopAt);
+                }
+                if (a > 62 && a <= 68) {
+                    stopAt = 15;
+                    console.log(stopAt);
+                }
+                if (a > 68 && a <= 70) {
+                    stopAt = 16;
+                    console.log(stopAt);
+                }
+                if (a > 70 && a <= 76) {
+                    stopAt = 17;
+                    console.log(stopAt);
+                }
+                if (a > 76 && a <= 82) {
+                    stopAt = 18;
+                    console.log(stopAt);
+                }
+                if (a > 82 && a <= 85) {
+                    stopAt = 19;
+                    console.log(stopAt);
+                }
+                if (a > 85 && a <= 87) {
+                    stopAt = 20;
+                    console.log(stopAt);
+                }
+                if (a > 87 && a <= 93) {
+                    stopAt = 21;
+                    console.log(stopAt);
+                }
+                if (a > 93 && a <= 99) {
+                    stopAt = 22;
+                    console.log(stopAt);
+                }
+
                 //console.log(rnd);
                 paddingEdge = 10;
                 duration = 5;
@@ -861,7 +892,7 @@
 
             function getLanguageText() {
 
-                languageText = "<div>Option 1</div><div>Option 2</div><div>Option 3</div><div>Option 4</div><div>Option 5</div><div>Option 6</div><div>Option 7</div><div>Option 8</div><div>Option 9</div><div>Option 10</div>";
+                languageText = "<div>2200 VP</div><div>Discord VIP Role</div><div>Steam Random Key</div><div>1x Haftalık Çekiliş Hakkı</div><div>295 VP</div><div>Steam Random Key</div><div>2x Haftalık Çekiliş Hakkı</div><div>Steam 10 Tl Cüzdan Key</div><div>295 VP</div><div>Steam Random Key</div><div>3x Haftalık Çekiliş Hakkı</div><div>595 VP</div><div>Discord VIP Role</div><div>Steam Random Key</div><div>1x Haftalık Çekiliş Hakkı</div><div>295 VP</div><div>Steam Random Key</div><div>2x Haftalık Çekiliş Hakkı</div><div>Steam 10 Tl Cüzdan Key</div><div>295 VP</div><div>Steam Random Key</div><div>3x Haftalık Çekiliş Hakkı</div>";
             }
 
             var timeoutStart;
@@ -873,14 +904,14 @@
 
                     timeoutStart = setTimeout(function () {
                         loadSettings();
-                        reloadGlobalVariables();
+                        //reloadGlobalVariables();
                         startAnimation(++sessionId);
                     }, 500);
 
                 } else {
                     timeoutStart = setTimeout(function () {
                         loadSettings();
-                        reloadGlobalVariables();
+                        //reloadGlobalVariables();
                         startAnimation(++sessionId);
                     }, 0);
                 }
@@ -891,7 +922,7 @@
             function onStart() {
                 getLanguageText();
                 init();
-                
+
             }
 
             return {
@@ -900,7 +931,7 @@
         })();
 
         SpinningWheel.start();
-        
+
 
 
 
